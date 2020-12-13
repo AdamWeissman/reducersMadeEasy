@@ -1,10 +1,10 @@
 const compose = (outerFunction, innerFunction) => (...bunchOfFunctions) => outerFunction(innerFunction(...bunchOfFunctions))
 
-const composeExplicit = function(outerFunction, innerFunction, ...bunchOfFunctions) {
-    outerFunction(
-      innerFunction
-      (...bunchOfFunctions)
-    )
+const composeExplicit = function(outerFunction, innerFunction) {
+  return function(...bunchOfFunctions) {
+    return outerFunction(
+      innerFunction (...bunchOfFunctions)
+    )}
 }
 
 const crazyArrays = {
@@ -32,7 +32,7 @@ function mapTimesThreeForTheOnThisArray(obj) {
   // keep in mind that mapTwoTimes only gets the temporary object
 }
 
-function addAnotherNumberByKey(ob, k) {
+function addAnotherNumberByKey(obj, k) {
   console.log("this happens last")
   console.log(k) // it doesn't know what k is here... but it did for function that ran earlier -- the map times two
   return ("if this wasn't calling return... would be getting undefined here")
