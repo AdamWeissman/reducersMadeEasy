@@ -4,14 +4,14 @@ const theArray =  [2,2,2,2,2] // if summed should add up to 10
 
 function sumTheNumbers (fromThisArray) {
   return fromThisArray.reduce((accumulator, valueAtIndex) => {
-    return accumulator + valueAtIndex
+    return accumulator + valueAtIndex // yields the total
   })
 }
 
 function sumTheNumbersWithStartingValueOf10 (fromThisArray) {
   return fromThisArray.reduce((accumulator, valueAtIndex) => {
-    return accumulator + valueAtIndex
-  }, 10)
+    return accumulator + valueAtIndex //yields the total, but... see the next line...
+  }, 10) // it starts at 10
 }
 
 console.log("using arrow function", sumTheNumbers(theArray))
@@ -28,11 +28,11 @@ function sumTheNumbers2(fromThisArray) {
 
 function reduceIntoAnEmptyArray(fromThisArray) {
   return fromThisArray.reduce(function(accumulator, valueAtIndex) {
-    return (accumulator.concat("using the empty array as a starting value" + " " + valueAtIndex + "\n"))
-  }, [])
+    return (accumulator.concat("using the empty array as a starting value" + " " + valueAtIndex))
+    // the above line treats the empty array below as the "accumulator/starting value" where it concatentates the text and value above
+  }, []) 
 }
 
 
 console.log("using standard function syntax", sumTheNumbers2(theArray))
 console.log("using standard function with a starting array instead of a value \n the point being to send all the values into a new array", reduceIntoAnEmptyArray(theArray))
-
