@@ -34,8 +34,6 @@ function combinedItemsTwoObjectsReverseOrder(someObject, someOtherObject) {
   }, combinedItemsOnASingleObject(someOtherObject)) 
 }
 
-
-
 console.log("combined items on a single object", combinedItemsOnASingleObject(object1))
 console.log("combined items on a single object with an intial value is", combinedItemsSingleObjectWithInitialValue(object1))
 console.log("\n")
