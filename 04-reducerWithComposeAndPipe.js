@@ -1,3 +1,5 @@
+//COMPOSE AND COMPOSE EXPLICIT
+
 const compose = (outerFunction, innerFunction) => (...bunchOfFunctions) => outerFunction(innerFunction(...bunchOfFunctions))
 
 const composeExplicit = function(outerFunction, innerFunction) {
@@ -7,44 +9,104 @@ const composeExplicit = function(outerFunction, innerFunction) {
     )}
 }
 
-const crazyArrays = {
-  "onThisArray": [10,20,30,40,50],
-  "andThisArray": [1000,2000,3000,4000,5000]
+//PIPE AND PIPE EXPLICIT
+// note... only the last part of the function is different... inner before outer
+const pipe = (outerFunction, innerFunction) => (...bunchOfFunctions) => innerFunction(outerFunction(...bunchOfFunctions))
+
+const pipeExplicit = function(outerFunction, innerFunction) {
+  return function(...bunchOfFunctions) {
+    return innerFunction(
+      outerFunction (...bunchOfFunctions)
+    )}
 }
 
-function runSomeFunctions(...fns) {
+//THE FUNCTIONS
+
+function alpha() {
+  return console.log("ALPHA")
+}
+
+function beta() {
+  return console.log("BETA")
+}
+
+function c() {
+  return console.log("C")
+}
+
+function delta() {
+  return console.log("DELTA")
+}
+
+function epsilon() {
+  return console.log("EPSILON")
+}
+
+//REDUCE FUNCTION WITH COMPOSE AND COMPOSE EXPLICIT
+
+function runSomeFunctionsWithCompose(...fns) {
   return fns.reduce(compose)
 }
 
-function mapTimesTwoForTheOnThisArray(obj, k, r) {
-  const updatedArray = [].concat(obj.onThisArray.map((x) => x * 2))
-  console.log(updatedArray)
-  console.log(k)
-  console.log(r)
-  return Object.assign({}, obj, { onThisArray: updatedArray })
+function runSomeFunctionsWithComposeExplicit(...fns) {
+  return fns.reduce(composeExplicit)
 }
 
-function mapTimesThreeForTheOnThisArray(obj) {
-  const updatedArray = [].concat(obj.onThisArray.map((x) => x * 3))
-  console.log(updatedArray)
-  return Object.assign(obj, obj, { onThisArray: updatedArray }) 
-  // the first argument sets the target, so I'm mutating this object... if i gave it the { } then it'd create a temporary new one for the function iteration
-  // keep in mind that mapTwoTimes only gets the temporary object
+//REDUCE FUNCTION WITH PIPE AND PIPE EXPLICIT
+
+function runSomeFunctionsWithPipe(...fns) {
+  return fns.reduce(pipe)
 }
 
-function addAnotherNumberByKey(obj, k) {
-  console.log("this happens last")
-  console.log(k) // it doesn't know what k is here... but it did for function that ran earlier -- the map times two
-  return ("if this wasn't calling return... would be getting undefined here")
-  // const appendMe = obj.key.concat(1233456)
-  //return Object.assign(obj, obj, { key: appendMe }) 
+function runSomeFunctionsWithPipeExplicit(...fns) {
+  return fns.reduce(pipe)
 }
 
+//TESTING WITH COMPOSE VERSION
 
-const crazyArray = runSomeFunctions(
-  addAnotherNumberByKey,
-  mapTimesThreeForTheOnThisArray,
-  mapTimesTwoForTheOnThisArray
-) (crazyArrays, { hello: "from the argument"}, "random phrase") // only the most outer function has access to the extra arguments 
+console.log("BELOW IS RESULT OF COMPOSE")
+console.log(runSomeFunctionsWithCompose(
+  epsilon,
+  delta,
+  c,
+  beta,
+  alpha
+) ())
 
-console.log(crazyArray)
+console.log("BELOW IS RESULT OF COMPOSE EXPLICIT")
+console.log(runSomeFunctionsWithComposeExplicit(
+  epsilon,
+  delta,
+  c,
+  beta,
+  alpha
+) ())
+
+//TESTING WITH PIPE VERSION
+
+console.log("BELOW IS RESULT OF PIPE")
+console.log(runSomeFunctionsWithPipe(
+  epsilon,
+  delta,
+  c,
+  beta,
+  alpha
+) ())
+
+console.log("BELOW IS RESULT OF PIPE EXPLICIT")
+console.log(runSomeFunctionsWithPipeExplicit(
+  epsilon,
+  delta,
+  c,
+  beta,
+  alpha
+) ())
+
+
+// const crazyArray = runSomeFunctions(
+  // addAnotherNumberByKey,
+  // mapTimesThreeForTheOnThisArray,
+  // mapTimesTwoForTheOnThisArray
+// ) (crazyArrays, { hello: "from the argument"}, "random phrase") // only the most outer function has access to the extra arguments 
+
+// console.log(crazyArray)
