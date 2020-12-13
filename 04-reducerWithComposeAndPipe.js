@@ -23,23 +23,55 @@ const pipeExplicit = function(outerFunction, innerFunction) {
 //THE FUNCTIONS
 
 function alpha() {
-  return console.log("ALPHA")
+  return console.log("  ALPHA")
 }
 
 function beta() {
-  return console.log("BETA")
+  return console.log("  BETA")
 }
 
-function c() {
-  return console.log("C")
+function cappa() {
+  return console.log("  CAPPA")
 }
 
 function delta() {
-  return console.log("DELTA")
+  return console.log("  DELTA")
 }
 
 function epsilon() {
-  return console.log("EPSILON")
+  return console.log("  EPSILON")
+}
+
+// THE FUNCTIONS WITH ARGUMENTS
+
+function alphaWithArgs(obj, whichKeyToUpdate) {
+  console.log("  ALPHA")
+  const updateObj = `obj.${whichKeyToUpdate}`.concat("ALPHA")
+  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+}
+
+function betaWithArgs(obj, whichKeyToUpdate) {
+  console.log("  BETA")
+  const updateObj = `obj.${whichKeyToUpdate}`.concat("BETA")
+  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+}
+
+function cappaWithArgs(obj, whichKeyToUpdate) {
+  console.log("  CAPPA")
+  const updateObj = `obj.${whichKeyToUpdate}`.concat("CAPPA")
+  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+}
+
+function deltaWithArgs(obj, whichKeyToUpdate) {
+  console.log("  DELTA")
+  const updateObj = `obj.${whichKeyToUpdate}`.concat("DELTA")
+  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+}
+
+function epsilonWithArgs(obj, whichKeyToUpdate) {
+  console.log("  EPSILON")
+  const updateObj = `obj.${whichKeyToUpdate}`.concat("EPSILON")
+  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
 }
 
 //REDUCE FUNCTION WITH COMPOSE AND COMPOSE EXPLICIT
@@ -62,13 +94,13 @@ function runSomeFunctionsWithPipeExplicit(...fns) {
   return fns.reduce(pipe)
 }
 
-//TESTING WITH COMPOSE VERSION
+//TESTING WITH COMPOSE VERSIONS
 
 console.log("BELOW IS RESULT OF COMPOSE")
 console.log(runSomeFunctionsWithCompose(
   epsilon,
   delta,
-  c,
+  cappa,
   beta,
   alpha
 ) ())
@@ -77,18 +109,18 @@ console.log("BELOW IS RESULT OF COMPOSE EXPLICIT")
 console.log(runSomeFunctionsWithComposeExplicit(
   epsilon,
   delta,
-  c,
+  cappa,
   beta,
   alpha
 ) ())
 
-//TESTING WITH PIPE VERSION
+//TESTING WITH PIPE VERSIONS
 
 console.log("BELOW IS RESULT OF PIPE")
 console.log(runSomeFunctionsWithPipe(
   epsilon,
   delta,
-  c,
+  cappa,
   beta,
   alpha
 ) ())
@@ -97,10 +129,60 @@ console.log("BELOW IS RESULT OF PIPE EXPLICIT")
 console.log(runSomeFunctionsWithPipeExplicit(
   epsilon,
   delta,
-  c,
+  cappa,
   beta,
   alpha
 ) ())
+
+// THIS OBJECT IS USED TO CAPTURE ALL THE VALUES
+
+const objectForComparingComposeAndPipe = {
+  compose: [],
+  composeWithArgs: [],
+  pipe: [],
+  pipeWithArgs: []
+}
+
+
+//TESTING FUNCTIONS THAT HAVE ARGUMENTS WITH COMPOSE VERSIONS
+
+console.log("BELOW IS RESULT OF COMPOSE WITH ARGS" )
+console.log(runSomeFunctionsWithCompose(
+  epsilonWithArgs,
+  deltaWithArgs,
+  cappaWithArgs,
+  betaWithArgs,
+  alphaWithArgs
+  ) (objectForComparingComposeAndPipe, "compose" ))
+  
+// console.log("BELOW IS RESULT OF COMPOSE EXPLICIT WITH ARGS")
+// console.log(runSomeFunctionsWithComposeExplicit(
+//   epsilonWithArgs,
+//   deltaWithArgs,
+//   cappaWithArgs,
+//   betaWithArgs,
+//   alphaWithArgs
+// ) ())
+
+//TESTING FUNCTIONS THAT HAVE ARGUMENTS WITH PIPE VERSIONS
+
+// console.log("BELOW IS RESULT OF PIPE WITH ARGS")
+// console.log(runSomeFunctionsWithPipe(
+//   epsilonWithArgs,
+//   deltaWithArgs,
+//   cappaWithArgs,
+//   betaWithArgs,
+//   alphaWithArgs
+// ) ())
+
+// console.log("BELOW IS RESULT OF PIPE EXPLICIT WITH ARGS")
+// console.log(runSomeFunctionsWithPipeExplicit(
+//   epsilonWithArgs,
+//   deltaWithArgs,
+//   cappaWithArgs,
+//   betaWithArgs,
+//   alphaWithArgs
+// ) ())
 
 
 // const crazyArray = runSomeFunctions(
