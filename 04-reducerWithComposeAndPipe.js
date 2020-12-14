@@ -44,34 +44,39 @@ function epsilon() {
 
 // THE FUNCTIONS WITH ARGUMENTS
 
-function alphaWithArgs(obj, whichKeyToUpdate) {
-  console.log("  ALPHA")
-  const updateObj = `obj.${whichKeyToUpdate}`.concat("ALPHA")
-  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+function alphaWithArgs(fns) {
+  //console.log("  ALPHA")
+  console.log(fns[0][`${fns[1]}`].push("ALPHA"))
+  //console.log(obj)
+  return [fns[0], fns[1]]
 }
 
-function betaWithArgs(obj, whichKeyToUpdate) {
-  console.log("  BETA")
-  const updateObj = `obj.${whichKeyToUpdate}`.concat("BETA")
-  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+function betaWithArgs(fns) {
+  //console.log("  BETA")
+  fns[0][`${fns[1]}`].push("BETA")
+  //console.log(obj)
+  return [fns[0], fns[1]]
 }
 
-function cappaWithArgs(obj, whichKeyToUpdate) {
-  console.log("  CAPPA")
-  const updateObj = `obj.${whichKeyToUpdate}`.concat("CAPPA")
-  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+function cappaWithArgs(fns) {
+  //console.log("  CAPPA")
+  console.log(fns[0][`${fns[1]}`].push("CAPPA"))
+  //console.log(obj)
+  return [fns[0], fns[1]]
 }
 
-function deltaWithArgs(obj, whichKeyToUpdate) {
-  console.log("  DELTA")
-  const updateObj = `obj.${whichKeyToUpdate}`.concat("DELTA")
-  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+function deltaWithArgs(fns) {
+  //console.log("  DELTA")
+  fns[0][`${fns[1]}`].push("DELTA")
+  //console.log(obj)
+  return [fns[0], fns[1]]
 }
 
-function epsilonWithArgs(obj, whichKeyToUpdate) {
-  console.log("  EPSILON")
-  const updateObj = `obj.${whichKeyToUpdate}`.concat("EPSILON")
-  return Object.assign(obj, obj, { [whichKeyToUpdate]: updateObj } )
+function epsilonWithArgs(fns) {
+  //console.log("  EPSILON")
+  fns[0][`${fns[1]}`].push("EPSILON")
+  //console.log(obj)
+  return [fns[0], fns[1]]
 }
 
 //REDUCE FUNCTION WITH COMPOSE AND COMPOSE EXPLICIT
@@ -91,7 +96,7 @@ function runSomeFunctionsWithPipe(...fns) {
 }
 
 function runSomeFunctionsWithPipeExplicit(...fns) {
-  return fns.reduce(pipe)
+  return fns.reduce(pipeExplicit)
 }
 
 //TESTING WITH COMPOSE VERSIONS
@@ -137,10 +142,10 @@ console.log(runSomeFunctionsWithPipeExplicit(
 // THIS OBJECT IS USED TO CAPTURE ALL THE VALUES
 
 const objectForComparingComposeAndPipe = {
-  compose: [],
   composeWithArgs: [],
-  pipe: [],
-  pipeWithArgs: []
+  composeExplicitWithArgs: [],
+  pipeWithArgs: [],
+  pipeExplicitWithArgs: []
 }
 
 
@@ -153,36 +158,36 @@ console.log(runSomeFunctionsWithCompose(
   cappaWithArgs,
   betaWithArgs,
   alphaWithArgs
-  ) (objectForComparingComposeAndPipe, "compose" ))
+  ) ([objectForComparingComposeAndPipe, "composeWithArgs"]))
   
-// console.log("BELOW IS RESULT OF COMPOSE EXPLICIT WITH ARGS")
-// console.log(runSomeFunctionsWithComposeExplicit(
-//   epsilonWithArgs,
-//   deltaWithArgs,
-//   cappaWithArgs,
-//   betaWithArgs,
-//   alphaWithArgs
-// ) ())
+console.log("BELOW IS RESULT OF COMPOSE EXPLICIT WITH ARGS")
+console.log(runSomeFunctionsWithComposeExplicit(
+  epsilonWithArgs,
+  deltaWithArgs,
+  cappaWithArgs,
+  betaWithArgs,
+  alphaWithArgs
+) ([objectForComparingComposeAndPipe, "composeExplicitWithArgs"]))
 
 //TESTING FUNCTIONS THAT HAVE ARGUMENTS WITH PIPE VERSIONS
 
-// console.log("BELOW IS RESULT OF PIPE WITH ARGS")
-// console.log(runSomeFunctionsWithPipe(
-//   epsilonWithArgs,
-//   deltaWithArgs,
-//   cappaWithArgs,
-//   betaWithArgs,
-//   alphaWithArgs
-// ) ())
+console.log("BELOW IS RESULT OF PIPE WITH ARGS")
+console.log(runSomeFunctionsWithPipe(
+  epsilonWithArgs,
+  deltaWithArgs,
+  cappaWithArgs,
+  betaWithArgs,
+  alphaWithArgs
+) ([objectForComparingComposeAndPipe, "pipeWithArgs"]))
 
-// console.log("BELOW IS RESULT OF PIPE EXPLICIT WITH ARGS")
-// console.log(runSomeFunctionsWithPipeExplicit(
-//   epsilonWithArgs,
-//   deltaWithArgs,
-//   cappaWithArgs,
-//   betaWithArgs,
-//   alphaWithArgs
-// ) ())
+console.log("BELOW IS RESULT OF PIPE EXPLICIT WITH ARGS")
+console.log(runSomeFunctionsWithPipeExplicit(
+  epsilonWithArgs,
+  deltaWithArgs,
+  cappaWithArgs,
+  betaWithArgs,
+  alphaWithArgs
+) ([objectForComparingComposeAndPipe, "pipeExplicitWithArgs"]))
 
 
 // const crazyArray = runSomeFunctions(
